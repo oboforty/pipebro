@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-graph.min.js"></script>
+    <script src="{__PIPENAME__}.js"></script>
+    <style>
+      html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+      const chart = anychart.graph(__FLOWS__);
+      chart.container("container");
+      chart.draw();
+      chart.nodes().height(18);
+
+      /* Process styles */
+      const ids = chart.nodes().labels();
+      ids.enabled(true);
+      ids.format("{%id}");
+      ids.fontWeight(600);
+      ids.fontSize(16);
+      ids.fontColor("black");
+      ids.position("center");
+      ids.anchor("center");
+      chart.nodes().shape("rectangle");
+      chart.nodes().height(40);
+      chart.nodes().width(140);
+
+      /* Queue style */
+      const queues = chart.group('queues');
+      if (queues) {
+        queues.shape("trapezium");
+        queues.height(40);
+        queues.width(40);
+        queues.labels().enabled(false);
+      }
+
+      /* Edge styles */
+      const labels = chart.edges().labels();
+      labels.enabled(true);
+      labels.format('{%dtype}');
+      labels.fontSize(13);
+
+      /* Node groups */
+      const node_col = (n,c) => {
+        const gr = chart.group(n);
+        if (gr) gr.fill(c)
+      };
+
+      //https://flatuicolors.com/palette/cn
+      node_col("processes", "#ffffff")
+      node_col("producers", "#ff6b81");
+      node_col("consumers", "#7bed9f");
+      node_col("batch", "red");
+      node_col("sync", "red");
+      node_col("concurrent", "#70a1ff");
+      node_col("queues", "#70a1ff");
+
+    </script>
+  </body>
+</html>
