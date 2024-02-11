@@ -34,6 +34,9 @@ class SerialRunner:
             for dtype in iterate_dtypes(proc.consumes):
                 self.cons_flow[dtype].add(proc)
 
+    def get_process(self, procid):
+        return next(filter(lambda p: p.__PROCESSID__ == procid, self.processes))
+
     def start_flow(self, start_event, dtype: DTYPE, debug=None, verbose=None):
         self.start_event = start_event, dtype
 
