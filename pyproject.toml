@@ -1,0 +1,16 @@
+[project]
+name = "pipebro"
+description = "Asynchronous pipeline framework"
+version = "1.0.0"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = [
+    'pipebro',
+    'pipebro.elems',
+    'pipebro.Runners',
+    'pipebro.Process',
+    'pipebro.ProcessImpl',
+    'pipebro.content',
+]
